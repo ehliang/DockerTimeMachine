@@ -32,6 +32,8 @@ RUN ./configure \
 COPY afp.conf /home/afp.conf
 COPY entrypoint.sh /entrypoint.sh
 
+RUN chmod +x /entrypoint.sh
+
 VOLUME ["/home/timeMachine"]
 EXPOSE 548 5353
 
