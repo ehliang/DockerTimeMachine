@@ -3,11 +3,14 @@ sed -i -e "s/AFP_USER/${AFP_USER}/g" /home/afp.conf
 cat /home/afp.conf
 
 
-groupadd ${AFP_GROUP}
+if id -u ${AFP_USER} >/dev/null 2>&1; then
+	echo "User exists"
+else
+	groupadd ${AFP_GROUP}
+	useradd ${AFP_USER} -M 
+	chpasswd <<< ${AFP_USER}:${AFP_PASS}
+fi
 
-useradd ${AFP_USER} -M 
-
-chpasswd <<< ${AFP_USER}:${AFP_PASS}
 
 echo ${AFP_USER}
 
